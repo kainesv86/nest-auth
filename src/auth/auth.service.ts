@@ -12,7 +12,7 @@ export class AuthService {
   constructor(
     @InjectRepository(UsersRepository)
     private userRepository: UsersRepository,
-    private jwtServer: JwtService,
+    private jwtService: JwtService,
   ) {}
 
   async createUser(createAuthDto: CreateAuthDto): Promise<void> {
@@ -31,13 +31,18 @@ export class AuthService {
       throw new UnauthorizedException('User or password incorrect');
     }
 
-    const accessToken: string = await this.jwtServer.sign({
+    const accessToken: string = await this.jwtService.sign({
       id: user.id,
       username: user.username,
       email: user.email,
     });
 
     return accessToken;
+  }
+
+  async getUser(accessToken: string): Promise<User> {
+    const { id } = await this.jwtService.verifyAsync(accessToken);
+    return await this.userRepository.findOne({ id });
   }
 
   async validateUser(loginUserDto: LoginUserDto): Promise<any> {
