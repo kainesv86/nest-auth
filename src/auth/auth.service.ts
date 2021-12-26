@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAuthDto } from './dto/create-auth.dto';
+import { LoginUserDto } from './dto/loginUser.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { User } from './entities/user.entity';
 import { UsersRepository } from './users.repository';
@@ -16,6 +17,18 @@ export class AuthService {
     const { username, password, email } = createAuthDto;
 
     await this.userRepository.save({ username, password, email });
+  }
+
+  async signIn(loginUserDto: LoginUserDto): Promise<string> {
+    const { username, password } = loginUserDto;
+    const user = await this.userRepository.findOne({
+      username,
+    });
+
+    if (!user || user.password !== password) {
+      throw new UnauthorizedException('User or password incorrect');
+    }
+    return 'Login success!';
   }
 
   // findAll() {

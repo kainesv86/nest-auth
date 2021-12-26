@@ -9,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateAuthDto } from './dto/create-auth.dto';
+import { LoginUserDto } from './dto/loginUser.dto';
 import { UpdateAuthDto } from './dto/update-auth.dto';
 import { User } from './entities/user.entity';
 
@@ -19,6 +20,11 @@ export class AuthController {
   @Post('signup')
   create(@Body() createAuthDto: CreateAuthDto): Promise<void> {
     return this.authService.createUser(createAuthDto);
+  }
+
+  @Post('signin')
+  signIn(@Body() loginUserDto: LoginUserDto): Promise<string> {
+    return this.authService.signIn(loginUserDto);
   }
 
   // @Get()
