@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
+import { User } from './auth/entities/user.entity';
 
 const DBConfig = TypeOrmModule.forRoot({
   type: 'mysql',
@@ -12,11 +13,11 @@ const DBConfig = TypeOrmModule.forRoot({
   database: 'nest_auth',
   synchronize: true,
   keepConnectionAlive: true,
-  entities: [],
+  entities: [User],
 });
 
 @Module({
-  imports: [AuthModule],
+  imports: [DBConfig, AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })
