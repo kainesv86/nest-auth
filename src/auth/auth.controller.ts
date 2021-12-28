@@ -12,16 +12,17 @@ import { Response, Request } from 'express';
 import { UserGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Cookies } from './cookies.decorator';
-import { RegisterUserDTO } from './dto/registerUser.dto';
+import { RegisterUserDTO, vRegisterUserDto } from './dto/registerUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { User } from './entities/user.entity';
+import { JoiValidationPipe } from 'utils/validator/validator.pipe';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  @UsePipes()
+  @UsePipes(new JoiValidationPipe(vRegisterUserDto))
   create(@Body() createAuthDto: RegisterUserDTO): Promise<void> {
     return this.authService.createUser(createAuthDto);
   }
