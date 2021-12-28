@@ -3,14 +3,12 @@ import {
   Get,
   Post,
   Body,
-  Patch,
-  Param,
-  Delete,
   Res,
   Req,
+  UseGuards,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
-import { access } from 'fs';
+import { UserGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Cookies } from './cookies.decorator';
 import { CreateAuthDto } from './dto/create-auth.dto';
@@ -46,9 +44,10 @@ export class AuthController {
   //   return accessToken;
   // }
 
+  @UseGuards(UserGuard)
   @Get('user')
-  getUser(@Cookies('accessToken') accessToken: string): Promise<User> {
-    return this.authService.getUser(accessToken);
+  getUser(@Req() req: Request): User {
+    return req.user;
   }
 
   @Get('getsomething')
