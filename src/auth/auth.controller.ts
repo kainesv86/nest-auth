@@ -34,15 +34,11 @@ export class AuthController {
     return accessToken;
   }
 
-  // @Get('getsomething')
-  // getSomething(@Req() request: Request): string {
-  //   const accessToken = request.cookies['accessToken'];
-  //   console.log(accessToken);
-  //   if (!accessToken) {
-  //     return 'Access Token not found';
-  //   }
-  //   return accessToken;
-  // }
+  @Post('logout')
+  @UseGuards(UserGuard)
+  async cLogout(@Req() req: Request, @Res() res: Response) {
+    await res.cookie('accessToken', '', { maxAge: -999 }).send();
+  }
 
   @UseGuards(UserGuard)
   @Get('user')
