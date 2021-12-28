@@ -6,12 +6,13 @@ import {
   Res,
   Req,
   UseGuards,
+  UsePipes,
 } from '@nestjs/common';
 import { Response, Request } from 'express';
 import { UserGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Cookies } from './cookies.decorator';
-import { CreateAuthDto } from './dto/create-auth.dto';
+import { RegisterUserDTO } from './dto/registerUser.dto';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { User } from './entities/user.entity';
 
@@ -20,7 +21,8 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('signup')
-  create(@Body() createAuthDto: CreateAuthDto): Promise<void> {
+  @UsePipes()
+  create(@Body() createAuthDto: RegisterUserDTO): Promise<void> {
     return this.authService.createUser(createAuthDto);
   }
 
