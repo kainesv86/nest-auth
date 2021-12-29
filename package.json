@@ -32,6 +32,7 @@
     "cookie-parser": "^1.4.6",
     "fastify-cookie": "^5.4.0",
     "joi": "^17.5.0",
+    "joi-vn-lang": "^1.0.10",
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-local": "^1.0.0",

@@ -3590,6 +3590,13 @@ jest@^27.2.5:
     import-local "^3.0.2"
     jest-cli "^27.4.5"
 
+joi-vn-lang@^1.0.10, joi-vn-lang@^1.0.6:
+  version "1.0.10"
+  resolved "https://registry.yarnpkg.com/joi-vn-lang/-/joi-vn-lang-1.0.10.tgz#acbe04f59f3d30cc2d1ff2884ca0c3b82e114170"
+  integrity sha512-g4k+KVzmZgBsg3sMTOtuCx1yWfczZfYD7/KAzYMwR5vtFERro3QttIZnYdhXGcb6vOacmH//ZqtPA6MCXSDbXw==
+  dependencies:
+    joi-vn-lang "^1.0.6"
+
 joi@*, joi@^17.5.0:
   version "17.5.0"
   resolved "https://registry.yarnpkg.com/joi/-/joi-17.5.0.tgz#7e66d0004b5045d971cf416a55fb61d33ac6e011"
